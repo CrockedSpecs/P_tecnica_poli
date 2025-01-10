@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class CubeSpawner : MonoBehaviour
 {
-    public GameObject[] cubes; // Lista de cubos a instanciar.
-
     void Start()
     {
         StartCoroutine(SpawnCubes());
@@ -15,14 +13,16 @@ public class CubeSpawner : MonoBehaviour
     {
         while (true)
         {
-            
-            int randomIndex1 = Random.Range(1, cubes.Length+1);
-            GameObject cube1 =cubesPool.Instance.RequestCube(randomIndex1);
-            Vector3 spawningPoint1 = GetSpawningPoint();
-            cube1.transform.position = spawningPoint1;
-        
-            
-            
+            Vector3 spawningPoint = GetSpawningPoint();
+            int randomIndex = Random.Range(1, 4);
+            GameObject cube =cubesPool.Instance.RequestCube(randomIndex);
+            if (cube != null)
+            {
+                cube.transform.position = spawningPoint;
+            }
+
+
+
             yield return new WaitForSeconds(Random.Range(1, 2));
         }
     }
